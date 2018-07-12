@@ -38,8 +38,10 @@ scripts/newtab.md.sh
 scripts/make_tutorial.sh
 scripts/make_docs.sh &
 
-$(npm bin)/nearleyc src/grammars/bracketexpr.ne \
-  > src/grammars/.bracketexpr.generated.ts
+for f in src/grammars/*.ne
+do
+  $(npm bin)/nearleyc $f -o src/grammars/.$(basename $f .ne).generated.ts
+done
 
 if [ "$(isWindowsMinGW)" = "True" ]; then
   powershell \
