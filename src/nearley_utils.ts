@@ -32,6 +32,22 @@ export class Parser {
         }
     }
 
+    feedMe(input) {
+        let lastResult
+        try {
+            this.parser.feed(input)
+            lastResult = this.parser.results[0]
+        } catch (e) {
+        } finally {
+            this.reset()
+            if (lastResult === undefined) {
+                throw "Error: no result!"
+            } else {
+                return lastResult
+            }
+        }
+    }
+
     private reset() {
         this.parser.restore(this.initial_state)
     }
