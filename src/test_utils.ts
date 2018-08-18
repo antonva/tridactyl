@@ -1,3 +1,4 @@
+const expect = require('chai').expect;
 // TODO: There's no reason to wrap the ans.
 function wrapPrimitives(testcases) {
     // Wrap all args and answers in arrays if they're not already
