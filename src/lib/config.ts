@@ -228,6 +228,8 @@ export class default_config {
         // N: "findnext -1",
         // ",<Space>": "nohlsearch",
         M: "gobble 1 quickmark",
+        m: "gobble 1 mark",
+        "'": "gobble 1 markjump",
         B: "fillcmdline taball",
         b: "fillcmdline tab",
         ZZ: "qall",

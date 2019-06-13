@@ -27,6 +27,7 @@ class State {
             jumppos: undefined,
         },
     ]
+    globalMarks: {} = {}
 }
 
 // Don't change these from const or you risk breaking the Proxy below.

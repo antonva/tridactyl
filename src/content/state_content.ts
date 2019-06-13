@@ -26,9 +26,10 @@ class State {
         },
     ]
     suffix: string = ""
+    localMarks: {}
 }
 
-export type ContentStateProperty = "mode" | "cmdHistory" | "prevInputs" | "suffix"
+export type ContentStateProperty = "mode" | "cmdHistory" | "prevInputs" | "suffix" | "localMarks"
 
 export type ContentStateChangedCallback = (
     property: ContentStateProperty,

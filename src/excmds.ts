@@ -88,6 +88,7 @@ import * as Native from "@src/lib/native"
 import * as TTS from "@src/lib/text_to_speech"
 import * as excmd_parser from "@src/parsers/exmode"
 import * as shell_quote from "node-shell-quote"
+import * as marks from "@src/content/marks"
 export let quote = shell_quote
 
 /**
@@ -955,6 +956,52 @@ document.addEventListener("load", () => curJumps().then(() => jumpprev(0)))
 export function unfocus() {
     (document.activeElement as HTMLInputElement).blur()
     contentState.mode = "normal"
+}
+
+/** Mark current location within the webpage.
+ *
+ *    Characters in the a-z range set a local mark available to the current tab.
+ *
+ *    Characters in the A-Z range set a global mark available anywhere in the browser.
+ */
+//#content
+export function mark(markChar: string) {
+    if (markChar.length == 1) {
+        if (/[a-z]/.test(markChar)) {
+            return marks.setLocalMark(markChar)
+        } else if (/[A-Z]/.test(markChar)) {
+            return marks.setGlobalMark(markChar)
+        }
+    }
+    return "Markchar string is longer than 1."
+}
+
+/** Jump to the specified mark.
+ *    Characters in the a-z range jump to a local mark available to the current tab.
+ *
+ *    Characters in the A-Z range jump to a global mark available anywhere in the browser.
+ */
+//#content
+export function markjump(markChar: string) {
+    if (markChar.length == 1) {
+        if (/[a-z]/.test(markChar)) {
+            return marks.jumpToLocalMark(markChar)
+        } else if (/[A-Z]/.test(markChar)) {
+            return marks.jumpToGlobalMark(markChar)
+        }
+    }
+    return "Markchar string is longer than 1."
+}
+
+/** Delete the specified marks. Marks are presented as a list.
+ *
+ *   Examples:
+ *   - `:delmarks Aa bp deletes marks A, a, b, and p`
+ *   - `:delmarks b-p deletes all marks in the range b to p`
+ *   - `:delmarks! deletes all marks for the current buffer`
+ */
+//#content
+export function markdel(markChar: string) {
 }
 
 /** Scrolls the window or any scrollable child element by a pixels on the horizontal axis and b pixels on the vertical axis.
