@@ -35,7 +35,8 @@ export const DefaultContainer = Object.freeze(
     fromString("default", "invisible", "noicond", "firefox-default"),
 )
 
-/** Creates a container from the specified parameters.Does not allow multiple containers with the same name.
+/** Creates a container from the specified parameters.
+    Does not allow multiple containers with the same name.
     @param name  The container name.
     @param color  The container color, must be one of: "blue", "turquoise", "green", "yellow", "orange", "red", "pink" or "purple". If nothing is supplied, it selects one at random.
     @param icon  The container icon, must be one of: "fingerprint", "briefcase", "dollar", "cart", "circle", "gift", "vacation", "food", "fruit", "pet", "tree", "chill"
@@ -175,14 +176,16 @@ export async function getId(name: string): Promise<string> {
             c => c.name.toLowerCase() === name.toLowerCase(),
         )
         if (res.length !== 1) {
-            throw new Error("")
+            throw new Error("Multiple containers with the same name, aborting.")
         } else {
             return res[0].cookieStoreId
         }
+        throw new Error("Could not find a container with that name.")
     } catch (e) {
         logger.error(
-            "[Container.getId] could not find a container with that name.",
+            "[Container.getId] " + e,
         )
+        return "firefox-default"
     }
 }
 

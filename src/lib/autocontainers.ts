@@ -302,6 +302,7 @@ export class AutoContain implements IAutoContain {
                     logger.error(
                         "Specified container doesn't exist. consider setting 'auconcreatecontainer' to true",
                     )
+                    return "firefox-default"
                 }
             }
             return Container.getId(aucons[aukeyarr[0]])
